@@ -146,15 +146,24 @@ function lvl5exercise4() {
     return array.indexOf("adam");
 }
 function lvl6exercise1(num) {
-	// Return 'hello' if num is 1, 'world' if num is 2, otherwise return'bye'
-	if (num == 1){
-        return 'hello';
-    }else if (num ==2){
-        return 'world';
+    // Return 'hello' if num is 1, 'world' if num is 2, otherwise return'bye'
+    var dic = {1:'hello', 2:'world'}
+    
+    if (num in dic){
+        return dic[num];
     } else {
-        return "bye";
+        return 'bye';
     }
+
+	// if (num == 1){
+    //     return 'hello';
+    // }else if (num ==2){
+    //     return 'world';
+    // } else {
+    //     return "bye";
+    // }
 }
+
 
 function lvl6exercise2() {
 	// Push 10 "hello" strings into the array using a for loop, then return it
@@ -187,9 +196,6 @@ function finalFunction(num){
 }
 
 
-
-
-
 console.log(lvl1exercise1());
 console.log(lvl1exercise2());
 console.log(lvl1exercise3());
@@ -217,7 +223,7 @@ console.log(lvl5exercise1());
 console.log(lvl5exercise2());
 console.log(lvl5exercise3());
 console.log(lvl5exercise4());
-console.log(lvl6exercise1(1));
+console.log(lvl6exercise1(2));
 console.log(lvl6exercise2());
 console.log(lvl6exercise3());
 console.log(finalFunction(5));

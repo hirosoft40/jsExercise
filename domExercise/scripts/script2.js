@@ -1,4 +1,50 @@
 
+function setClass(ob, className){
+    ob.setAttribute('class', className);
+}
+
+function writeText(ob, str){
+    ob.textContent = str;
+}
+
+function createVariables(){
+    var varName = [];
+  
+    for (var i = 0; i <= 20; ++i) {
+        varName[i] = ;
+    }
+  
+    return accounts;
+  }
+
+nav = [
+    "navDiv",
+    "navUl",
+    "navLi1",
+    "navLi2":["li"],
+    "navLi3",
+    "navA1",
+    "navA2",
+    "navA3",
+    "navH1"
+]
+navDiv = {
+    attr:'div',
+    objName:'navDiv',
+    className:'navSetting',
+    text:'',
+    append:[]
+}
+
+if (obj.className.length > 0){
+    setClass('class, className')
+}
+if (obj.text.length > 0){
+        
+}
+
+
+
 
 //== nav ===
 var navContainer = document.createElement('nav');
