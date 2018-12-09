@@ -25,7 +25,7 @@ function challenge2(){
 };    
 challenge2();
 
-var challenge3 = () =>{
+const challenge3 = () =>{
     var num = 2520;
     var i =2;
     var newLocal = true;
