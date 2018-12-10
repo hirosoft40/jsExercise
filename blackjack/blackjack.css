@@ -1,0 +1,30 @@
+body {
+    background: #A1FFCE;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #FAFFD1, #A1FFCE);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #FAFFD1, #A1FFCE);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    box-sizing: border-box;
+    font-family: 'Raleway', sans-serif;
+}
+
+.hand {
+    width: 100%;
+    height: 20vh;
+    background-color: rgba(255, 255, 255, .5);
+    margin: 10px 20px;
+    border-radius: 10px
+}
+
+h1 {
+    text-shadow: 4px 4px 0 rgba(0, 0, 0, .1);
+}
+img{
+    padding:1%;
+    height:100%;
+}
+
+.hide{
+    display: none;
+}
