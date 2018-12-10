@@ -24,13 +24,16 @@
 					<i class="fas fa-shopping-basket mr-2"></i>
 					<i class="fas fa-paw mr-2"></i>
 					<i class="fas fa-wine-glass-alt"></i>
-					<span class='plus'><i class="fas fa-angle-down float-right"></i></span>
+					<span class='plus'><i id="arrowdown" class="fas fa-angle-down float-right"></i></span>
 				</h1>
-				<input type="text" placeholder="Add New Todo">
-				<ul class='list-group list-unstyled m-0 p-0'>
-					<li class='list-item'><span class='trash'><i class="fas fa-trash-alt"></i></span>Brush Teeth</li>
-					<li class='list-item'><span class='trash'><i class="fas fa-trash-alt"></i></span></li>
-					<li class='list-item'><span class='trash'><i class="fas fa-trash-alt"></i></span></li>
+				<input id='mainInput' type="text" placeholder="Add New Todo">
+				<ul id='mainUl' class='list-group list-unstyled m-0 p-0'>
+					<li id='0' class='list-item' onclick="getId(this.id)">
+						<span class='trash' id="t0" onclick="getEleIdI(this.id)">
+							<i class="fas fa-trash-alt"></i>
+						</span>
+						Brush Teeth
+					</li>
 				</ul>
 			</div>
 		</div>

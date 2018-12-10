@@ -56,3 +56,6 @@ input:focus{
     transition: 0.3s linear;
     opacity:0;
 }
+.hide{
+    display: none;
+}
