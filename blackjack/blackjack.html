@@ -13,11 +13,10 @@
     </head>
     <body>
         <div class="container">
-                <h1 class='text-center'>BLACKJACK GAME</h1>
-                <div id="table" class="m-5 rounded">
+                <h1 class='text-center mt-5'>BLACKJACK GAME</h1>
+                <div id="messages" class='message'></div>
 
-                    <div id="messages"></div>
-                    
+                <div id="table" class="m-5 rounded">     
                     <div class="mt-5 font-weight-bold">
                         <label>Dealer: </label>                    
                         <label id="dealer-points" class="points"></label>
@@ -36,18 +35,14 @@
                         <img id='img4' src="" alt="">                        
                     </div>
                     
-                    <div class="buttons d-block text-center m-2">                    
-                        <button class = 'btn btn-dark' id="deal-button">Deal</button>
+                    <div class="buttons d-block text-center mt-5">                    
+                        <button class = 'btn btn-dark' id="deal-button" onclick="deck()">Deal</button>
                         
-                        <button class = 'btn btn-dark mx-3' id="hit-button">Hit</button>
+                        <button class = 'btn btn-dark mx-5' id="hit-button" onclick="hit()">Hit</button>
                         
-                        <button class = 'btn btn-dark' id="stand-button">Stand</button>
-                    </div>
-                    
-                    </div>
-                    
+                        <button class = 'btn btn-dark' id="stand-button" onclick="stand()">Stand</button>
+                    </div>                                        
                 </div>
-            </div>
         </div>
         
     <!-- Optional JavaScript -->
