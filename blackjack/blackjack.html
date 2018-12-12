@@ -13,17 +13,21 @@
     </head>
     <body>
         <div class="container">
-                <h1 class='text-center mt-5'>BLACKJACK GAME</h1>
-                <div id="messages" class='message'></div>
-
-                <div id="table" class="m-5 rounded">     
-                    <div class="mt-5 font-weight-bold">
+                <h1 class='text-center mt-4'>BLACKJACK GAME</h1>
+                <div class = 'messageArea d-flex justify-content-center align-baseline m-2'>
+                    <div id="messages" class='message mr-5'></div>
+                    <div class='d-flex justify-content-center mt-2' >
+                        <button class = 'btn btn-dark btnSize' id="playAgain" onclick="startGame()">Click to play again.</button>
+                    </div>
+                </div>
+                <div id="table" class="pt-3 px-5 rounded">     
+                    <div class=" font-weight-bold">
                         <label>Dealer: </label>                    
                         <label id="dealer-points" class="points"></label>
                     </div>
                     <div id="dealer-hand" class="hand">
-                        <img id='img1' src="" alt="">
-                        <img id='img2' src="" alt="">
+                        <img alt="" src ="" id='img1'>
+                        <img alt="" src ="" id='img2'>
                     </div>
                     
                     <div class="mt-5 font-weight-bold">
@@ -31,11 +35,11 @@
                         <label id="player-points" class="points"></label>
                     </div>
                     <div id="player-hand" class="hand">
-                        <img id='img3' src="" alt="">
-                        <img id='img4' src="" alt="">                        
+                        <img alt="" src ="" id='img3'>
+                        <img alt="" src ="" id='img4'>
                     </div>
                     
-                    <div class="buttons d-block text-center mt-5">                    
+                    <div class="buttons d-block text-center m-5">                    
                         <button class = 'btn btn-dark' id="deal-button" onclick="deck()">Deal</button>
                         
                         <button class = 'btn btn-dark mx-5' id="hit-button" onclick="hit()">Hit</button>
