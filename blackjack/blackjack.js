@@ -1,13 +1,11 @@
-
 var cards = [];
 var playerCards = [];
 var dealerCards = [];
 var playerPoints = [{ points: 0 }, { acePoints: 0 },{suitFlag:false}];
 var dealerPoints = [{ points: 0 }, { acePoints: 0 },{suitFlag:false}];
 var symbols = ['C', 'D', 'S', 'H'];
-var num = 0;
 
-let pPoint, dPoint;
+var pPoint, dPoint, myCards, myHand, myLabel,myPoints, holeCard, num;
 
 var img1 = document.getElementById('img1');
 var img2 = document.getElementById('img2');
@@ -35,17 +33,20 @@ const startGame = () => {
     playerPoints = [{ points: 0 }, { acePoints: 0 },{suitFlag:false}];
     dealerPoints = [{ points: 0 }, { acePoints: 0 },{suitFlag:false}];
     messages.textContent = '';
-    lblPlayerPoints.textContent = '';
-    lblDealerPoints.textContent = '';
-    blnPlayerUsedAce = false;
-    blnDealerUsedAce = false;
     img1.parentNode.classList.remove('winHand');
     img3.parentNode.classList.remove('winHand');
+    buttonPlayAgain.classList.add('hide');
+    buttonDeal.classList.remove('hide');
+    buttonHit.disabled = false;
+    buttonStand.disabled = false;
     num = 0;
+
+    lblPlayerPoints.textContent = '';
+    lblDealerPoints.textContent = '';
 
     var allImgs = document.getElementsByTagName('img');
     for (var i=0; i<allImgs.length;i++){ 
-            allImgs[i].removeAttribute('src');
+            allImgs[i].src = '';
     }
 
     var allNewImags = document.getElementsByClassName('newImages');
@@ -55,11 +56,6 @@ const startGame = () => {
             allNewImags[i].parentNode.removeChild(child);
             }
         }
-    buttonPlayAgain.classList.add('hide');
-    buttonDeal.classList.remove('hide');
-    buttonHit.disabled = false;
-    buttonStand.disabled = false;
-
 }
 
 // creating new cards
@@ -78,7 +74,9 @@ const whoseCard = who => {
     myCards = (who === 'dealer'? dealerCards: playerCards);
     myPoints = (who === 'dealer' ? dealerPoints : playerPoints);
     myHand = (who === 'dealer'? dealerhand: playerhand);
+    myLabel = (who === 'dealer'? lblDealerPoints: lblPlayerPoints);
 }
+
 
 
 // generating random number
@@ -108,9 +106,14 @@ const imgNumber = who => {
 
 
 // ==== displayPoints
-const displayPoints = () => {
-    lblDealerPoints.textContent = dealerPoints[0].points;
-    lblPlayerPoints.textContent = playerPoints[0].points;
+const displayPoints = (where) => {
+    if (where != 'deck'){
+        lblDealerPoints.textContent = dealerPoints[0].points;
+        lblPlayerPoints.textContent = playerPoints[0].points;    
+    } else {
+        lblDealerPoints.textContent = "Hidden";
+        lblPlayerPoints.textContent = playerPoints[0].points;    
+    }
 }
 
 // display message for win/lost
@@ -143,14 +146,15 @@ const loadNewCard = who => {
 // ==== load deck
 const deck = () => {
     //dealer deck
-    img1.setAttribute('src', imgNumber('dealer'));
-    img2.setAttribute('src', imgNumber('dealer'));
+    holeCard = imgNumber('dealer');
+    img1.src = "imgs/blue_back.jpg"
+    document.getElementById('img2').src = imgNumber('dealer')
  
     //player deck
-    img3.setAttribute('src', imgNumber('player'));
-    img4.setAttribute('src', imgNumber('player'));
+    img3.src = imgNumber('player')
+    img4.src = imgNumber('player')
 
-    displayPoints();
+    displayPoints('deck');
     buttonDeal.classList.add('hide');
     buttonHit.disabled = false;
     buttonStand.disabled = false;
@@ -161,16 +165,17 @@ const deck = () => {
 // ==== hit button
 const hit = () => {
     loadNewCard('player')
-    displayPoints();
+    img1.src = holeCard;
+    displayPoints('hit');
     whoWon('hit');
 };
 
 // === stand button
 const stand = () => {
-    // loadNewCard('dealer');
+    img1.src = holeCard;
+    buttonHit.disabled = true;
     loadNewCard('dealer')
-    displayPoints();    
-
+    displayPoints('stand');    
     if (dealerPoints[0].points >= 17) whoWon('stand');  
 }
 
@@ -189,73 +194,93 @@ const addPoint = (who) => {
     }
 }
 
-var blnPlayerUsedAce = false;
-var blnDealerUsedAce = false;
+const checkPointDiff = (pPoint, dPoint)=>{
+    let pPointDiff = Math.abs(21 - pPoint);
+    let dPointDiff = Math.abs(21 - dPoint);
+    if (pPointDiff == dPointDiff){
+        return displayMessage("Tie")
+    } else if (pPointDiff < dPointDiff){
+        return displayMessage("Won")
+    } else {
+        return displayMessage("Lost");
+    }
+}
+
+const useAcePoint = (who) => {
+    whoseCard(who);
+    myPoints[0].points -= 10;
+    myPoints[1].acePoints = 10;
+    myLabel.textContent = myPoints[0].points ;
+}
+
+const checkBlackJack = () =>{
+    if (dealerCards.length ==2 && dealerPoints[2].suitFlag && dealerPoints[1].acePoints>0){
+        img1.src = holeCard;
+        lblDealerPoints.textContent = dealerPoints[0].points;
+        displayMessage("Lost with Dealer's Blackjack");   
+        return true   
+    } else if (playerCards.length ==2 && playerPoints[2].suitFlag && playerPoints[1].acePoints>0){
+        img1.src = holeCard;
+        lblDealerPoints.textContent = dealerPoints[0].points;
+        displayMessage('Won with Blackjack');
+        return true 
+    } else {
+        return false;
+    }
+};
 
 const whoWon = (where) => {
-    pPoint = playerPoints[0].points;
+    whoseCard("player");
+    pPoint = myPoints[0].points;
     dPoint = dealerPoints[0].points;
 
-    console.log('p', num, pPoint, playerPoints[1].acePoints)
-    console.log('d', num, dPoint, dealerPoints[1].acePoints)
-
-    if (pPoint === dPoint){
-        return displayMessage("Tie");
-        // player BlackJack
-    } else if (playerCards.length == 2){
-        if (playerPoints[2].suitFlag && playerPoints[1].acePoints>0){
-            return displayMessage('Won with Blackjack');
-        // when double ace at first deal
-        } else if (playerPoints[1].acePoints == 20){
-            playerPoints[0].points -= 10;
-            playerPoints[1].acePoints = 10;
-            return false;
-        }
-      // dealer blackjack  
-    } else if (dealerCards.length == 2){
-        if(dealerPoints[2].suitFlag && dealerPoints[1].acePoints>0){
-            return displayMessage("Lost with Dealer's Blackjack");
-            // when double ace at first deal
-        } else if (dealerPoints[1].acePoints == 20){
-            dealerPoints[0].points -= 10;
-            dealerPoints[1].acePoints = 10;
-            return false;
-        }
-    // instant win 
-    }else if (pPoint === 21){
-        return displayMessage("Won");
-    } else if (dPoint === 21){
-        return displayMessage("Lost");
-    };
+    if(checkBlackJack()){
+        return true
+    } else if (dPoint === 21 && pPoint === 21){    // both 21
+        img1.src = holeCard;
+        return displayMessage('Tie');
+    } else if (dPoint === 21 && pPoint !== 21){ //dealer is 21
+        img1.src = holeCard;
+        return displayMessage('Lost');        
+    } else if (dPoint !== 21 && pPoint === 21){ // player is 21
+        img1.src = holeCard;
+        return displayMessage('Won');   
+    };    
     
-    if (where === 'deck' || where == 'hit'){
-        if (pPoint<21 && dPoint< 17){
+    if (where === 'deck'){
+        if(myPoints[1].acePoints == 20){   //if plyaers has 2 Aces on first deal
+            useAcePoint('player')
+            return false;
+        } else if(dealerPoints[1].acePoints ==20){ //if dealer has 2 Aces on first deal
+            useAcePoint('dealer')
+            return false;        
+        } 
+    } else if (where === 'hit'){
+        if(pPoint<21 && dPoint< 17){    // can continue
             return false
-        } else if (pPoint<21 && dPoint >= 17) {
-            if  (Math.abs(21 - pPoint) < Math.abs(21 - dPoint)){
-                return displayMessage("Won");
-            } else {
-                return displayMessage("Lost");
-            }
-        } else if ((playerPoints[1].acePoints > 0) && (pPoint - 10 < 21)){
-            playerPoints[0].points -= 10;
-            playerPoints[1].acePoints = 0;
-            displayPoints();
+        } else if (pPoint<21 && dPoint >= 17) {  // check depending on point
+            checkPointDiff(pPoint, dPoint);
+        // Ace 
+        }else if (pPoint>21 && (playerPoints[1].acePoints > 0) && (pPoint - 10 < 21)){  //Ace
+            useAcePoint('player')
+            displayPoints('hit');
             return false
         } else{
             return displayMessage("Lost. Busted!")
         }
-    } else {
-        if ((pPoint < 21 && dPoint < 21) &&
-            (Math.abs(21 - pPoint) < Math.abs(21 - dPoint))){
-            return displayMessage("Won");
-        } else if((dPoint>21) && (dealerPoints[1].acePoints > 0) && (dPoint - 10 < 21)){
-            dealerPoints[0].points -= 10;
-            dealerPoints[1].acePoints = 0;
-            displayPoints(); 
+    } else if (where == 'stand'){
+        if (dPoint < 17){
             return false;
-        } else{
-            return displayMessage("Won")
+        } else if (dPoint>21){
+            return displayMessage("Win");
+        } else if(pPoint < 21 && dPoint < 21){
+            checkPointDiff(pPoint, dPoint);
+        } else if((dPoint>21) && (dealerPoints[1].acePoints > 0) && (dPoint - 10 < 21)){
+            useAcePoint('dealer')
+            displayPoints('stand'); 
+            return false;
+        }else{
+            return displayMessage("Lost");
         }
     }
 }

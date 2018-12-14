@@ -61,6 +61,7 @@ inp.addEventListener('keyup', function(event){
 // ===== hide todo area
 arrow.addEventListener('click', function(){
     inp.classList.toggle('hide');
+    inp.focus();
 })
 
 // ====COMPLETED =====
