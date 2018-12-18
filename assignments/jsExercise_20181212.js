@@ -23,7 +23,6 @@
 //     var count = num;
 //     var actuallyCount = function(){
 //         count++;
-//         return count;
 //     }
 //     return actuallyCount;
 // }
@@ -35,25 +34,26 @@
 
 // // ========== Counter3 with prototypes
 // var counter3 = function (num){
-//     this.num = num;
-// }
-// counter3.prototype.increment = function(){
-//     return this.num +1;
-// }
-// counter3.prototype.decrement = function(){
-//     return this.num -1;
-// }
-// var count = new counter3(3)
-// console.log(count.increment())
-// console.log(count.decrement())
-
-// // ========== Counter3 with Closure
-function counter4(num){
-    return {
-        increment: function(){return num+1},
-        decrement: function(){return num-1}
-    } 
-}
-var count = counter4(4);
-console.log(count.increment());
-console.log(count.decrement());
+    //     this.num = num;
+    // }
+    // counter3.prototype.increment = function(){
+        //     return this.num +1;
+        // }
+        // counter3.prototype.decrement = function(){
+            //     return this.num -1;
+            // }
+            // var count = new counter3(3)
+            // console.log(count.increment())
+            // console.log(count.decrement())
+            
+            // // ========== Counter3 with Closure
+            function counter4(num){
+                return {
+                    increment: function(){return num+1},
+                    decrement: function(){return num-1}
+                } 
+            }
+            var count = counter4(4);
+            console.log(count.increment());
+            console.log(count.decrement());
+            //         return count;
