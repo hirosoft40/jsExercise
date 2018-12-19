@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Cinzel|Noto+Serif+SC" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+    <style>
+        body {
+            color:rgb(184, 184, 184);
+            background: #16222A;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #3A6073, #16222A);  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #3A6073, #16222A); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+            font-size:16px;
+        }
+        nav{
+            background-color: transparent;
+        }
+        .gray{
+            background-color: #474747;
+        }
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            letter-spacing: 1rem;
+            font-size: 60px;
+        }
+        h4{
+            font-family: 'Cinzel', serif;
+        }
+        .card{
+            background-color: rgba(0,0,0,.1);
+        }
+        a{
+            color:rgb(184, 184, 184);
+            text-decoration: none;
+        }
+        a:hover{
+            color:rgb(77, 23, 12);
+        }
+        
+        .header{
+            /* font-size:14px; */
+            font-family: 'Cinzel', serif;
+        }
+        .fa-horse-head{
+            font-size: 1.5rem;
+        }
+
+    </style>
+</head>
+
+<body>
+    <nav class="nav navbar-nav " style="font-size:60px">
+        <h1 class="text-center mt-2">GAME OF THRONE </h1>
+    </nav>
+    <div class="container">
+        <div class="card-columns mt-5" id ='main'>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+        crossorigin="anonymous"></script>
+    <script>
+    $(function(){
+        let page = 2;
+        for (let l=0; l<100;l++){
+        let url = "https://www.anapioficeandfire.com/api/characters?page="
+            $.get(url+page+"&pageSize=50").done(result=>{
+                for (let i=0;i<result.length;i++){
+                    let $divCard = $('<div>',{'class':'card gray mb-3'});
+                    let $a = $('<a>',{
+                        'target':'_blank',
+                        "class":'text-center mr-2',
+                        'href':(result[i].allegiances[0]!==''?result[i].allegiances[0]:""),
+                        'text':''
+                    });
+                    let $span = $("<span>",{"class":"mr-2"});
+                    let $i = $("<i>",{"class":"fas fa-horse-head"});
+
+                    let $divCardBody = $('<div>',{'class':'card-body'})
+                    let $h5 = $('<h4>',{
+                        'class':'card-title',
+                        'text': (result[i].name !== '' ? result[i].name : "") 
+                        });
+                    let $pAliases = $('<p>', {
+                        'class':'card-text',
+                        'text': (result[i].aliases[0] !== '' ? 'Aliases: '+result[i].aliases[0] : "") 
+                    });
+                    let $pDied = $('<p>', {
+                        'class':'card-text',
+                        'text': (result[i].died !== '' ? 'Died: '+result[i].died : "") 
+                    });
+                    let $pBorn = $('<p>', {
+                        'class':'card-text',
+                        'text': (result[i].born !== '' ? 'Born: '+result[i].born : "") 
+                    });
+                    let $pCulture = $('<p>', {
+                        'class':'card-text',
+                        'text': (result[i].culture !== ''? 'Culture: '+result[i].culture : "") 
+                    });
+                    let $divCardHeader = $('<div>',{
+                            'class':'card-header header',
+                            });  
+                    let houseurl = result[i].allegiances[0];
+
+                    if (houseurl !== undefined && houseurl !== ""){
+                        $.get(houseurl).done(res =>{
+                            // console.log(res.name)
+                            $a.text(res.name)
+                            $span.append($i);
+                            $a.prepend($span);
+
+                            $divCardHeader.prepend($a);
+                        })
+                    }else{
+                        $a.text('')
+                        $i.removeClass("fa-horse-head");
+                        // $i.addClass("fa-crow");
+                        $span.append($i);
+                        $a.prepend($span);
+                        $divCardHeader.removeClass('header')
+                        $divCardHeader.prepend($a);
+                        
+                    }
+                    $divCardBody.append($h5);
+
+                    $pAliases.append($pDied).append($pBorn).append($pCulture);
+                    $divCardBody.append($pAliases)
+
+                    $divCard.append($divCardHeader).append($divCardBody);
+                    $('#main').append($divCard);
+
+                }
+            });
+         };
+    });
+    </script>
+</body>
+
+</html>
