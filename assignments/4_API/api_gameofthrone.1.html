@@ -24,7 +24,7 @@
             background-color: transparent;
         }
         .gray{
-            background-color: #474747;
+            background-color: #474747; 
         }
         h1 {
             font-family: 'Cinzel', serif;
@@ -99,7 +99,7 @@
             $.get(url+page+"&pageSize=50").done(result=>{
                 for (let i=0;i<result.length;i++){
                     let $divCard = $('<div>',{'class':'card gray mb-3'});
-                    let $a = $('<a>',{
+                    let $a = $('<a>',{result.hits[i].recipe.url)
                         'target':'_blank',
                         "class":'text-center mr-2',
                         'href':(result[i].allegiances[0]!==''?result[i].allegiances[0]:""),
@@ -129,11 +129,9 @@
                         'class':'card-text',
                         'text': (result[i].culture !== ''? 'Culture: '+result[i].culture : "") 
                     });
-
                     let $divCardHeader = $('<div>',{
                             'class':'card-header header',
                             });  
-
                     let houseurl = result[i].allegiances[0];
 
                     if (houseurl !== undefined && houseurl !== ""){
@@ -153,6 +151,7 @@
                         $a.prepend($span);
                         $divCardHeader.removeClass('header')
                         $divCardHeader.prepend($a);
+                        
                     }
                     $divCardBody.append($h5);
 
