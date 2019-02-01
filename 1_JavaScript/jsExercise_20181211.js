@@ -8,13 +8,19 @@ Person.prototype.greet = function(other){
     console.log(`Hello ${other.name}, I am ${this.name}!`);
 }
 
+// Given above code, Write code to
+
+// Write code to Instantiate an instance object of Person with name of 'Sonny', email of 'sonny@hotmail.com', and phone of '483-485-4948', store it in the variable sonny.
 let sonny = new Person('Sonny', "sonny@hotmail.com", "483-586-4948");
+
+// Write code to Instantiate another person with the name of 'Jordan', email of 'jordan@aol.com', and phone of '495-586-3456', store it in the variable 'jordan'.
 let jordan = new Person('Jordan', 'jordan@aol.com', '495-586-3456');
 
-sonny.greet(jordan)  // 3
-jordan.greet(sonny) // 4
+sonny.greet(jordan)  // 3 Write code to Have sonny greet jordan using the greet method.
 
-//5 & 6
+jordan.greet(sonny) // 4 Write code to Have jordan greet sonny using the greet method.
+
+//5 & 6 Write a statement to print the contact info (email and phone) of Sonny.Write another statement to print the contact info of Jordan.
 Person.prototype.contact = function(){
     console.log(`${this.name}'s email is: ${this.email}, phone number is ${this.phone}`)
 };
@@ -62,19 +68,4 @@ function Deck(){
 
     }
 }
-
-//== object exercise 2
-var mom = { 
-    firstName: 'Alice', 
-    lastName: 'Wong', 
-    eyeColor: 'brown', 
-    hairColor: 'black' 
-}; 
-
-var daughter = { 
-    firstName: 'Ilene', 
-    hairColor: 'brown' 
-};
-
-
 
