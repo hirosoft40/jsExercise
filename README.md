@@ -19,4 +19,4 @@ I have seen 2 episode of this show, but I am not familiar with the detail of sto
 The API that we have used here is junior developper friendly with no API keys, no limits. I was able to understand the structure smoothly that we need API url and API keys, and then receive results using ajax. 
 
 <h5> Images</h5>
-<img src ='screenshots/game_of_throne'>
+<img src ='screenshots/game_of_throne.png'>
