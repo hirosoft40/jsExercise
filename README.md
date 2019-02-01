@@ -1,7 +1,13 @@
 <h1> JavaScript Assignments</h1>
 This repo is consisted of assignments in DigitalCrafts. 
+Here are some of my work.
 
-<h3> [1] Game of Throne API</h3>
+<h3> [1] JavaScript Exercise</h3>
+<p>Basics are very important for everything. And here are some basics JavaScript coding. I enjoy coding and I feel happier when I was able to write simple and clean code.</p>
+<img src ='screenshots/js.png'>
+
+
+<h3> [2] Game of Throne API</h3>
 <p>jsExercise/4_API/api_gameofthrone.1.html</p>
 <p>I made this assignment in Week 6 of DigitalCrafts. The main purpose was to practice ajax, JSON and API to get remote data.</p>
 
